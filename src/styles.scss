@@ -1,0 +1,372 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "./assets/styles/bootstrap-grid.min.css";
+@import "./assets/styles/forms";
+@import "~@angular/material/theming";
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.l-active {
+  color: #fff;
+  text-shadow: -1px -1px 0 #ff6600, 1px -1px 0 #ff6600, -1px 1px 0 #ff6600, 1px 1px 0 #ff6600;
+}
+
+// margin
+.mx-10 {
+  margin: 0 10px;
+}
+.mb-5 {
+  margin-bottom: 5px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+/* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 1001;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Section for spinner */
+/* Transparent Overlay */
+.loading:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: "";
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0,
+    rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0,
+    rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0,
+    rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0,
+    rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.breadcrumb {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .breadcrumb-item {
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.5rem;
+  }
+  .breadcrumb-item.active a {
+    color: #6c757d;
+  }
+  .breadcrumb-item + .breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: #6c757d;
+    content: "/";
+  }
+}
+
+.btn-create {
+  background: #5cb85c;
+  color: #fff;
+  border-radius: 4px;
+}
+.btn-save {
+  background: #1c7cd5;
+  color: #fff;
+  border-radius: 4px;
+}
+.btn-cancel {
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #dddddd !important;
+}
+.border-gray {
+  border: 1px solid #dddddd !important;
+}
+.data-table {
+  display: flex;
+  overflow-x: auto;
+  margin-top: 40px;
+  table {
+    box-shadow: none;
+    flex: 1;
+  }
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+.no-padding {
+  padding: 0 !important;
+}
+
+// search input
+.search-group {
+  margin-bottom: 40px;
+  .look-up {
+    .search-input-group {
+      display: flex;
+      .input-group-prepend {
+        display: flex;
+        padding: 5px 5px;
+        color: #495057;
+        background-color: #eceeef;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 40px;
+        justify-content: center;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: -1px;
+      }
+      .search-input {
+        color: #495057;
+        height: 38px;
+        line-height: 36px;
+        padding: 5px 5px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        flex: 1;
+        outline: none;
+        :focus,
+        :active {
+          border-color: #ddd;
+          outline: none;
+        }
+      }
+      .search-button {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+  }
+  .search-button {
+    background-color: #56c0e0;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    color: #fff;
+    margin-left: -1px;
+  }
+}
+.choose-type {
+  button {
+    background: #fff;
+    border: 1px solid #dddddd;
+  }
+  button :active,
+  .active {
+    background: #dddddd;
+  }
+  button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// card
+.custom-card {
+  border: 2px solid #56c0e0;
+  box-shadow: 0px 3px 6px #ddd;
+  .mat-card-header {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: #dcedf6;
+    box-shadow: 0 3px 6px #dddddd;
+    padding: 10px;
+    padding-bottom: 0;
+    .mat-card-header-text {
+      margin: 0;
+      .mat-card-subtitle {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .mat-card-content {
+    padding: 10px;
+    margin-bottom: 0;
+  }
+  .mat-card-actions {
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+}
+
+// form
+.input-to {
+  width: 70px;
+  text-align: center;
+  line-height: 36px;
+  border: 1px solid #ced4da;
+  margin-left: -4px;
+  background: #fff;
+  height: 36px;
+  margin-right: -4px;
+  z-index: 2;
+}
+
+.btn-detail {
+  color: #fff;
+  background: #2c699f;
+  height: 25px;
+  line-height: 25px !important;
+  padding: 0 0px;
+  font-size: 12px;
+}
+
+.app-mat-snack-accent {
+  background: map-get($map: $mat-pink, $key: A200);
+  color: map-get($map: $mat-grey, $key: 50);
+  .mat-button {
+    background: map-get($map: $mat-red, $key: A400);
+    color: map-get($map: $mat-grey, $key: 50);
+  }
+}
+
+.static-value {
+  div:nth-child(1) {
+    font-size: 75%;
+    color: rgba(0,0,0,.54);
+  }
+}
+
+.shipment-card-my-panel {
+  max-width: 540px!important;
+}
+
+.full-width {
+  width: 100%;
+}
