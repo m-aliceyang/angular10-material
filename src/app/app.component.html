@@ -1,0 +1,25 @@
+
+<div class="app-layout" *ngIf="profile.isLoggedIn">
+  <app-toolbar></app-toolbar>
+
+  <div class="app-mainContent">
+    <router-outlet>
+      <span *ngIf="(showLoader | async)" class="loading"></span>
+    </router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>
+
+<div class="page-centered" *ngIf="!profile.isLoggedIn">
+  <div *ngIf="profile.isLogout">
+    <h1>Log out successfully!</h1>
+    <h3>It is recommended that you close your browser to clear the session.</h3>
+  </div>
+  <div *ngIf="!profile.isLogout">
+    <h1>Welcome to tracking system</h1>
+    <h3>Please login to next process</h3>
+  </div>
+  <br>
+  <br>
+  <button mat-raised-button color="primary" (click)="login()">LOGIN</button>
+</div>
