@@ -1,0 +1,199 @@
+<div class="main-content" fxLayout="column" fxFlex="90%" fxFlex.lt-md="100%"
+  style="margin: auto;padding: 0 16px 20px;">
+
+    <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                            {label:'shipment' | translate, value: ['shipment']},
+                            {label: isEdit ? (data$ | async)?.systemRef : 'new' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+    <div class="example-container" fxFlex="100" fxLayout="row wrap">
+      <form fxLayout="row wrap"
+      fxFlex="100"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="16px grid"
+      [formGroup]="form"
+    >
+      <div fxFlex="100" *ngIf="isEdit">
+        <div fxFlex="24" class="static-value">
+          <div>{{'createdBy' | translate}}:</div>
+          <div>{{(data$ | async)?.createdByUser}}</div>
+        </div>
+        <div fxFlex="24" class="static-value">
+          <div>{{'createdDate' | translate}}:</div>
+          <div>{{(data$ | async)?.createdDate | date:'short'}}</div>
+        </div>
+        <div fxFlex="24" class="static-value">
+          <div>{{'lastUpdatedBy' | translate}}:</div>
+          <div>{{(data$ | async)?.lastUpdatedByUser}}</div>
+        </div>
+        <div fxFlex="24" class="static-value">
+          <div>{{'lastUpdatedDate' | translate}}:</div>
+          <div>{{(data$ | async)?.lastUpdatedDate | date:'short'}}</div>
+        </div>
+      </div>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'systemRef' | translate}}:</mat-label>
+        <input matInput formControlName="systemRef" type="text" placeholder="{{'systemRef' | translate}}" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'bu' | translate}}#:</mat-label>
+        <input matInput formControlName="buNumber" type="text" placeholder="buNumber" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'department' | translate}}#:</mat-label>
+        <input matInput formControlName="department" type="text" placeholder="department" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'indentNumber' | translate}}:</mat-label>
+        <input matInput formControlName="poNo" type="text" placeholder="indent number" maxlength="200"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'exCountry' | translate}}:</mat-label>
+        <input matInput formControlName="exCountry" type="text" placeholder="ex-country" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'shipperName' | translate}}:</mat-label>
+        <input matInput formControlName="shipperName" type="text" placeholder="shipper name" maxlength="100"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'transportation' | translate}}:</mat-label>
+        <mat-select formControlName="tranTypeId">
+          <mat-option *ngFor="let o of (tranTypes$ | async)" [value]="o.key">{{o.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'consignee' | translate}}:</mat-label>
+        <mat-select formControlName="consigneeId">
+          <mat-option *ngFor="let o of (consignees$ | async)" [value]="o.key">{{o.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'noPackage' | translate}}:</mat-label>
+        <input matInput formControlName="numberPackage" type="number" placeholder="no. package" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'grossWeight' | translate}}:</mat-label>
+        <input matInput formControlName="grossWeight" type="number" placeholder="gross weight" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'chargeableWeight' | translate}}:</mat-label>
+        <input matInput formControlName="chargeWeight" type="number" placeholder="chargeable weight" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'invoiceNo' | translate}}:</mat-label>
+        <input matInput formControlName="invoiceNo" type="text" maxlength="200"/>
+        <button mat-button matSuffix mat-icon-button (click)="openDN()" *ngIf="profile.isSuper">
+          <mat-icon>anchor</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'currency' | translate}}:</mat-label>
+        <input matInput formControlName="invoiceCurrency" type="text" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'cargoValue' | translate}}:</mat-label>
+        <input matInput formControlName="invoiceAmount" type="number" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'flightVessel' | translate}}#:</mat-label>
+        <input matInput formControlName="flightNumber" type="text" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'hawb' | translate}}:</mat-label>
+        <input matInput formControlName="hawb" type="text" maxlength="20"/>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'bookingReceivedDate' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="receivedDatePicker" formControlName="receivedDate">
+        <mat-datepicker-toggle matSuffix [for]="receivedDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #receivedDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'delivered' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="deliveredDatePicker" formControlName="deliveredDate">
+        <mat-datepicker-toggle matSuffix [for]="deliveredDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #deliveredDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'pickupDate' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="pickupDatePicker" formControlName="collectionDate">
+        <mat-datepicker-toggle matSuffix [for]="pickupDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #pickupDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'destination' | translate}}:</mat-label>
+        <mat-select formControlName="destOrigId">
+          <mat-option *ngFor="let o of (destinations$ | async)" [value]="o.key">{{o.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'declarationDate' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="declarationDatePicker" formControlName="declarationDate">
+        <mat-datepicker-toggle matSuffix [for]="declarationDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #declarationDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'etd' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="etdDatePicker" formControlName="etd">
+        <mat-datepicker-toggle matSuffix [for]="etdDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #etdDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'eta' | translate}}:</mat-label>
+        <input matInput [matDatepicker]="etaDatePicker" formControlName="eta">
+        <mat-datepicker-toggle matSuffix [for]="etaDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #etaDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100" *ngIf="profile.isSuper">
+        <mat-label>{{'company' | translate}}:</mat-label>
+        <mat-select formControlName="companyId">
+          <mat-option *ngFor="let o of (companies$ | async)" [value]="o.id">{{o.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="100">
+        <mat-label>{{'remarks' | translate}}:</mat-label>
+        <textarea matInput formControlName="publicRemarks" rows="4" cdkTextareaAutosize ></textarea>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="100" *ngIf="profile.isSuper">
+        <mat-label>{{'privateRemarks' | translate}}:</mat-label>
+        <textarea matInput formControlName="privateRemarks" rows="4" cdkTextareaAutosize ></textarea>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="32" fxFlex.lt-md="49" fxFlex.lt-sm="100">
+        <mat-label>{{'status' | translate}}:</mat-label>
+        <mat-select formControlName="statusId">
+          <mat-option *ngFor="let o of (status$ | async)" [value]="o.key">{{o.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div fxFlexFill fxLayoutAlign="end center" fxLayoutGap="15px">
+      <button mat-raised-button class="btn-cancel" (click)="cancel()">{{'cancel' | translate}}</button>
+      <button mat-raised-button *ngIf="profile.isSuper" class="btn-save" [disabled]="form.invalid || !form.touched || !form.dirty || form.pristine" (click)="save()" >{{'save' | translate}}</button>
+  </div>
+</div>

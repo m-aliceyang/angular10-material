@@ -1,0 +1,129 @@
+<div class="main-content" fxLayout="column" fxFlex="90%" fxFlex.lt-md="100%" style="margin: auto;padding: 0 16px 20px;">
+
+    <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                            {label:'shipment' | translate, value: ['shipment']},
+                            {label:'lookUp' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+    <mat-expansion-panel [expanded]="(panelOpenState$ | async)" (opened)="panelOpened()" [style.margin-bottom]="'20px'">
+      <mat-expansion-panel-header [collapsedHeight]="'40px'">
+        <mat-panel-title>
+          {{'search' | translate}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        <div fxLayout="column">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100" fxLayoutAlign="start" fxLayoutGap="10px">
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'indentNumber' | translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.indentNumber" [placeholder]="'indentNumber' | translate"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'mawb' | translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.mawb" [placeholder]="'mawb' | translate"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'hawb' | translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.hawb" [placeholder]="'hawb' | translate"/>
+            </mat-form-field>
+            <div fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between" fxFill>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'etdFrom' | translate}}</mat-label>
+                <input matInput [matDatepicker]="etdFromPicker" [(ngModel)]="model.etdFrom">
+                <mat-datepicker-toggle matSuffix [for]="etdFromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #etdFromPicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'etdTo' | translate}}</mat-label>
+                <input matInput [matDatepicker]="etdToPicker" [(ngModel)]="model.etdTo">
+                <mat-datepicker-toggle matSuffix [for]="etdToPicker"></mat-datepicker-toggle>
+                <mat-datepicker #etdToPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between" fxFill>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'deliveredFrom' | translate}}</mat-label>
+                <input matInput [matDatepicker]="deliveredFromPicker" [(ngModel)]="model.deliveredFrom">
+                <mat-datepicker-toggle matSuffix [for]="deliveredFromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #deliveredFromPicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'deliveredTo' | translate}}</mat-label>
+                <input matInput [matDatepicker]="deliveredToPicker" [(ngModel)]="model.deliveredTo">
+                <mat-datepicker-toggle matSuffix [for]="deliveredToPicker"></mat-datepicker-toggle>
+                <mat-datepicker #deliveredToPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between" fxFill>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'pickupDateFrom' | translate}}</mat-label>
+                <input matInput [matDatepicker]="pickupDateFromPicker" [(ngModel)]="model.pickupDateFrom">
+                <mat-datepicker-toggle matSuffix [for]="pickupDateFromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #pickupDateFromPicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field fxFlex="45">
+                <mat-label>{{'pickupDateTo' | translate}}</mat-label>
+                <input matInput [matDatepicker]="pickupDateToPicker" [(ngModel)]="model.pickupDateTo">
+                <mat-datepicker-toggle matSuffix [for]="pickupDateToPicker"></mat-datepicker-toggle>
+                <mat-datepicker #pickupDateToPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'shipper' | translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.shipper" [placeholder]="'shipper' | translate"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'invoice'| translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.invoice" [placeholder]="'invoiceNumber' | translate"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'destination' | translate}}</mat-label>
+              <mat-select [(ngModel)]="model.destination">
+                <mat-option value="">{{'noSelect' | translate}} </mat-option>
+                <mat-option *ngFor="let o of (destinations$ | async)" [value]="o.key">{{o.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'status' | translate}}</mat-label>
+              <mat-select [(ngModel)]="model.status">
+                <mat-option value=""> {{'noSelect' | translate}} </mat-option>
+                <mat-option *ngFor="let o of (status$ | async)" [value]="o.key">{{o.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill *ngIf="profile.isSuper || profile.companies.length > 1">
+              <mat-label>{{'company' | translate}}</mat-label>
+              <mat-select [(ngModel)]="model.companies" multiple="true">
+                <mat-option *ngFor="let o of (companies$ | async)" [value]="o.id">{{o.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'transportationType' | translate}}</mat-label>
+              <mat-select [(ngModel)]="model.tranType" multiple="true">
+                <mat-option *ngFor="let o of (tranType$ | async)" [value]="o.key">{{o.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'consignee' | translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="model.consignee" [placeholder]="'consignee' | translate"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxFill>
+              <mat-label>{{'bu' | translate}}#</mat-label>
+              <input matInput type="text" [(ngModel)]="model.department" [placeholder]="'bu' | translate"/>
+            </mat-form-field>
+          </div>
+
+      </div>
+    </mat-expansion-panel>
+
+    <div fxLayoutGap="15px" fxFlex="100">
+      <button mat-raised-button color="default" (click)="reset()">{{'reset' | translate}}</button>
+      <button mat-raised-button color="accent" (click)="isSwitched=false; onSearch()">{{'search' | translate}}</button>
+      <button mat-raised-button color="warn" (click)="export()">{{'export' | translate}}</button>
+      <button mat-raised-button *ngIf="profile.isSuper" color="primary" (click)="create()">{{'create' | translate}}</button>
+    </div>
+
+    <app-choose-type (typeChanged)="switchView($event)"></app-choose-type>
+    <!-- table -->
+    <app-shipment-table *ngIf="type ==='table'" [data$]="dataSource$" (view)="openDetail($event)"></app-shipment-table>
+    <!-- card -->
+    <app-shipment-card *ngIf="type ==='card'" [data$]="dataSource$" (view)="openDetail($event)"></app-shipment-card>
+
+</div>

@@ -1,0 +1,50 @@
+<div class="data-card" fxFlexFill fxLayout="row wrap" fxLayoutAlign="space-between start">
+  <div fxFlex="100">
+    <button mat-button [matMenuTriggerFor]="menu">{{'sortBy' | translate}}: [{{order}} <mat-icon [ngStyle]="{'font-size': '1.2rem'}">{{iconDirection}}</mat-icon>]</button>
+    <mat-menu #menu="matMenu" [class]="'shipment-card-my-panel'">
+      <div fxFlex="540px" fxLayout="row wrap" fxLayoutAlign="space-between">
+        <button mat-menu-item *ngFor="let k of columnKeys"
+          fxFlex="120px"
+          (click)="sortChange(k)">{{sortColumns[k] | translate}}</button>
+      </div>
+    </mat-menu>
+  </div>
+    <div fxFlex.lt-md="48" fxFlex.lt-sm="100" class="mt-20" fxFlex="32" *ngFor="let item of (data$ | async).data">
+        <mat-card class="example-card mat-elevation-z custom-card no-padding">
+            <mat-card-header fxLayout="column" style="font-size: 18px;">
+                <mat-card-title>{{'indentNumber' | translate}}: {{item.poNo}}</mat-card-title>
+                <mat-card-subtitle>{{'systemRef' | translate}}: {{item.systemRef}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content fxLayout="row wrap" fxLayoutAlign="space-between space-between">
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'bu' | translate}} #:</b> <span>{{item.buNumber}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'department' | translate}} #:</b> <span>{{item.department}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'invoiceNo' | translate}}:</b> <span>{{item.invoiceNo}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'shipper' | translate}}:</b> <span>{{item.shipperName}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'consigneeName' | translate}}:</b> <span>{{item.consigneeName}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'origin' | translate}}:</b> <span>{{item.exCountry}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'destination' | translate}}:</b> <span>{{item.destOrig}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'shippingMode' | translate}}:</b> <span>{{item.tranType}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'mawb' | translate}}#:</b> <span>{{item.mawb}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'hawb' | translate}}#:</b> <span>{{item.hawb}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'flightVessel' | translate}}#:</b> <span>{{item.flightNumber}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'grossWeight' | translate}}:</b> <span>{{item.grossWeight}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'chargeWeight' | translate}}:</b> <span>{{item.chargeWeight}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'numberPackage' | translate}}:</b> <span>{{item.numberPackage}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b> {{'recdDate' | translate}}:</b> <span>{{item.receivedDate | date:'shortDate'}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'status' | translate}}:</b> <span>{{item.status}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'cargoPickUpDate' | translate}}:</b> <span>{{item.collectionDate | date:'shortDate'}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'cleranceDate' | translate}}:</b> <span>{{item.declarationDate | date:'shortDate'}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'departureDate' | translate}}:</b> <span>{{item.etd | date:'shortDate'}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'arrivalDate' | translate}}:</b> <span>{{item.eta | date:'shortDate'}}</span> </div>
+              <div fxFlex="47" fxLayoutAlign="space-between center"><b>{{'deliveryDate' | translate}}:</b> <span>{{item.deliveredDate | date:'shortDate'}}</span> </div>
+            </mat-card-content>
+            <mat-card-actions fxLayoutAlign="end stretch">
+                <button mat-button color="primary" (click)="detail(item.id)">{{'update' | translate}}</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<mat-paginator [length]="(data$ | async).records"
+                 [pageSizeOptions]="[10, 20, 50]"
+                 [pageIndex]="(data$ | async).page"
+                 [pageSize]="(data$ | async).pageSize" showFirstLastButtons></mat-paginator>
