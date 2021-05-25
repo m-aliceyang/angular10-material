@@ -1,0 +1,20 @@
+<div class="data-card" fxFlexFill fxLayout="row wrap" fxLayoutAlign="space-between start">
+
+    <div fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" class="mt-20" *ngFor="let item of (data$ | async)">
+        <mat-card class="example-card mat-elevation-z custom-card no-padding">
+            <mat-card-header fxLayout="column" style="font-size: 18px;" >
+              <div class="mb-5"><b fxFlex="40%">{{'origin' | translate}}:</b>   <span fxFlex="50%">{{item.origin}}</span> </div>
+              <div class="mb-5"><b fxFlex="40%">{{'destination' | translate}}:</b>   <span fxFlex="50%">{{item.destination}}</span> </div>
+            </mat-card-header>
+            <mat-card-content fxLayout="row" fxLayoutGap="15px">
+                <div [fxFlex]="item.secondDictionary && item.secondDictionary.length > 0 ? 48 : 100" fxLayout="column" fxLayoutAlign="start space-between" >
+                  <div fxLayoutAlign="space-between center" *ngFor="let o of item.firstDictionary"><b>{{o.key}}:</b> <span>{{o.value}}</span> </div>
+                </div>
+                <div fxFlex="48%" fxLayout="column" fxLayoutAlign="start space-between" *ngIf="item.secondDictionary">
+                  <div fxLayoutAlign="space-between center" *ngFor="let o of item.secondDictionary"><b>{{o.key}}:</b> <span>{{o.value}}</span> </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

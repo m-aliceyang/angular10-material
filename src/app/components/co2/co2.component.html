@@ -1,0 +1,92 @@
+<div class="main-content" fxFlex="90%" fxFlex.lt-md="100%" style="margin: auto;padding: 0 16px 20px;" fxLayout="column">
+  <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                          {label:'co2' | translate, value: ['co2']},
+                          {label:'lookUp' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+  <mat-expansion-panel [expanded]="(panelOpenState$ | async)" (opened)="panelOpened()" [style.margin-bottom]="'20px'">
+    <mat-expansion-panel-header [collapsedHeight]="'40px'">
+      <mat-panel-title>
+        {{'search' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div fxFlex="100" fxLayout="column">
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutGap="20px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
+        <mat-form-field fxFlex="31" fxFlex.lt-md="47" fxFlex.lt-sm="100">
+          <mat-label>   {{'transportation' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.tranType">
+            <mat-option [value]="">--NOT SELECT--</mat-option>
+            <mat-option *ngFor="let o of (tranTypes$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="31" fxFlex.lt-md="47" fxFlex.lt-sm="100">
+          <mat-label>{{'origin' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.origin" multiple>
+            <mat-option [value]="" (click)="clearOD('origin')">--NOT SELECT--</mat-option>
+            <mat-option *ngFor="let o of (origins$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="31" fxFlex.lt-md="47" fxFlex.lt-sm="100">
+          <mat-label>{{'destination' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.destination" multiple>
+            <mat-option [value]="" (click)="clearOD('destination')">{{'noSelect' | translate}}</mat-option>
+            <mat-option *ngFor="let o of (destinations$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="31" fxFlex.lt-md="47" fxFlex.lt-sm="100" *ngIf="profile.isSuper || profile.companies?.length > 1">
+          <mat-label>{{'company' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.companies" multiple="true">
+            <mat-option *ngFor="let o of (companies$ | async)" [value]="o.id">{{o.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-radio-group fxFlex="100" [(ngModel)]="model.resultType" fxLayoutGap="30px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
+        <mat-radio-button value="1">{{'noComparison' | translate}}</mat-radio-button>
+        <mat-radio-button value="2">{{'sameYrDiffMth' | translate}}</mat-radio-button>
+        <mat-radio-button value="3">{{'twoYrsSameMth' | translate}}</mat-radio-button>
+        <mat-radio-button value="4">{{'twoYrsYTD' | translate}}</mat-radio-button>
+      </mat-radio-group>
+
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutGap="20px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
+        <mat-form-field fxFlex="24" fxFlex.lt-md="47" fxFlex.lt-sm="100">
+          <mat-label>{{'year1' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.year1">
+            <mat-option [value]="">{{'noSelect' | translate}}</mat-option>
+            <mat-option *ngFor="let o of (years$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="24" fxFlex.lt-md="47" fxFlex.lt-sm="100">
+          <mat-label>{{'period1' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.period1">
+            <mat-option [value]="">{{'noSelect' | translate}}</mat-option>
+            <mat-option *ngFor="let o of (periods$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="24" fxFlex.lt-md="47" fxFlex.lt-sm="100" *ngIf="model.resultType==='3' || model.resultType === '4'">
+          <mat-label>{{'year2' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.year2">
+            <mat-option [value]="">{{'noSelect' | translate}}</mat-option>
+            <mat-option *ngFor="let o of (years$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="24" fxFlex.lt-md="47" fxFlex.lt-sm="100" *ngIf="model.resultType==='2' || model.resultType === '4'">
+          <mat-label>{{'period2' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model.period2">
+            <mat-option [value]="">{{'noSelect' | translate}}</mat-option>
+            <mat-option *ngFor="let o of (periods$ | async)" [value]="o.key">{{o.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <div fxFlex="100" fxLayoutAlign="start" fxLayout="row" fxLayoutGap="20px">
+    <button mat-raised-button color="default" (click)="reset()">{{'reset' | translate}}</button>
+    <button mat-raised-button color="primary" (click)="search()">{{'search' | translate}}</button>
+    <button mat-raised-button color="warn" (click)="export()">{{'export' | translate}}</button>
+  </div>
+  <app-choose-type (typeChanged)="type=$event"></app-choose-type>
+
+  <app-co2-table *ngIf="type ==='table'" [data$]="data$"></app-co2-table>
+  <!-- card -->
+  <app-co2-card *ngIf="type ==='card'" [data$]="data$"></app-co2-card>
+</div>
