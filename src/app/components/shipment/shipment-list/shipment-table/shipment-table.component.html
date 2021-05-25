@@ -1,0 +1,134 @@
+<div class="data-table" fxLayoutAlign="center stretch" fxLayout="column">
+    <table mat-table [dataSource]="(data$ | async).data" class="mat-elevation-z8 table-striped full-width" fxFlex="100%" matSort>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+                {{'actions'| translate}}
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <button class="btn-detail" mat-button (click)="detail(row.id)">{{'detail' | translate}}</button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="systemRef">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'systemRef' | translate}}# </th>
+            <td mat-cell *matCellDef="let element"> {{element.systemRef}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="buNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'bu' | translate}}# </th>
+            <td mat-cell *matCellDef="let element"> {{element.buNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'department' | translate}}# </th>
+            <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="poNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'indentNumber' | translate}}#:</th>
+            <td mat-cell *matCellDef="let element"> {{element.poNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="invoiceNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'invoiceNo' | translate}}#: </th>
+          <td mat-cell *matCellDef="let element"> {{element.invoiceNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shipperName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'shipper' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.shipperName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="consigneeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  {{'consigneeName' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.consigneeName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="exCountry">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'origin' | translate}}: </th>
+            <td mat-cell *matCellDef="let element"> {{element.exCountry}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="destOrig">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'destination' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.destOrig}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tranType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'shippingMode' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.tranType}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mawb">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'mawbMBL' | translate}}#: </th>
+          <td mat-cell *matCellDef="let element"> {{element.mawb}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hawb">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'hawb/HBL' | translate}}#: </th>
+          <td mat-cell *matCellDef="let element"> {{element.hawb}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="flightNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'flightVessel' | translate}}#: </th>
+          <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberPackage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'numberPackage' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.numberPackage}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="receivedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'recdDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.receivedDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="grossWeight">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'grossWeight' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.grossWeight}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="chargeWeight">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'chargeWeight' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.chargeWeight}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'status' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="collectionDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'cargoPickUpDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.collectionDate | date:'shortDate'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="declarationDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'cleranceDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.declarationDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="etd">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'departureDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.etd | date:'shortDate'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'arrivalDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.eta | date:'shortDate'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveredDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  {{'deliveryDate' | translate}}: </th>
+          <td mat-cell *matCellDef="let element"> {{element.deliveredDate | date:'shortDate'}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+    </table>
+    <mat-paginator [length]="(data$ | async).records"
+                       [pageSizeOptions]="[10, 20, 50]"
+                       [pageIndex]="(data$ | async).page"
+                       [pageSize]="(data$ | async).pageSize" showFirstLastButtons></mat-paginator>
+</div>
