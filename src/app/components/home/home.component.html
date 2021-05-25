@@ -1,0 +1,7 @@
+<div class="page-centered">
+  <h1 *ngIf="!hasError">{{'welcome' | translate}} {{ (profile.identity$ | async)?.name }}!</h1>
+  <div *ngIf="hasError">
+    <h1 style="color: red">{{'errorOccur' | translate}}</h1>
+    <h3>{{ (error$ | async) }}</h3>
+  </div>
+</div>

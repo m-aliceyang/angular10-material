@@ -1,0 +1,62 @@
+<mat-toolbar color="primary">
+    <!-- <mat-toolbar-row style="background:#1C7CD5;" fxLayoutAlign="center center">
+        <div fxFlex="90%" fxFlex.lt-md="100%" fxLayoutAlign="center center">
+            <button mat-icon-button class="example-icon" aria-hidden="false" aria-label="date_range icon">
+                <mat-icon>date_range</mat-icon>
+            </button>
+            <span>123</span>
+            <button mat-icon-button class="example-icon" aria-hidden="false" aria-label="mail icon">
+                <mat-icon>mail</mat-icon>
+            </button>
+            <span class="spacer"></span>
+
+            <div class="awb-btn">
+                AWB TRACKING
+            </div>
+            <a class="social-icons" title="Facebook" target="_blank"><img src="/assets/icons/fb.png"></a>
+            <a class="social-icons" title="Linkedin" target="_blank"><img class="" src="/assets/icons/linkedin.png"></a>
+            <a class="social-icons" title="Instagram" target="_blank"><img src="/assets/icons/ig.png"></a>
+            <a class="social-icons"><img src="/assets/icons/wechat.png"></a>
+        </div>
+    </mat-toolbar-row> -->
+
+
+    <mat-toolbar-row style="background: #1C7CD5; color: #fff; position: relative;" fxLayoutAlign="center center">
+        <div fxFlex="90%" fxFlex.lt-md="100%" fxLayoutAlign="center center">
+            <span>Lane Crawford Tracking</span>
+            <span class="spacer"></span>
+            <div fxShow  [ngClass]="{'show': !iscollapsed }" class="mobile_menu">
+                <!-- <a routerLink="/home" aria-label="Home" [routerLinkActive]="['l-active']" (click)="iscollapsed = true" mat-button>Home</a> -->
+                <a routerLink="/user" aria-label="USER" [routerLinkActive]="['l-active']" (click)="iscollapsed = true" *ngIf="profile.isAdmin" mat-button>{{'user' | translate}}</a>
+                <a routerLink="/consignee" aria-label="CONSIGNEE" [routerLinkActive]="['l-active']" (click)="iscollapsed = true" *ngIf="profile.isSuper" mat-button>{{'consignee' | translate}}</a>
+                <a routerLink="/shipment" aria-label="SHIPMENT" [routerLinkActive]="['l-active']" (click)="iscollapsed = true" mat-button>{{'shipment' | translate}}</a>
+                <a routerLink="/co2" aria-label="CO2" [routerLinkActive]="['l-active']" (click)="iscollapsed = true" mat-button>{{'co2' | translate}}</a>
+                <a routerLink="/" *ngIf="!profile.isLoggedIn"  aria-label="LOGIN" (click)="iscollapsed = true; login()" mat-button>>{{'login' | translate}}</a>
+                <a *ngIf="profile.isLoggedIn" aria-label="PROFILE" mat-button [matMenuTriggerFor]="profileMenu">{{(profile.identity$ | async)?.name || 'myProfile' | translate}}</a>
+                <mat-menu #profileMenu="matMenu">
+                  <button mat-menu-item (click)="resetPassword()">{{'resetPassword' | translate}}</button>
+                  <!-- <button mat-menu-item (click)="editProfile()">Edit Profile</button> -->
+                  <button mat-menu-item (click)="logout()">{{'logout'| translate}}</button>
+                </mat-menu>
+            </div>
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="select language">
+                <mat-icon>language</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item  *ngFor="let lang of langs" (click)="onLanguageChange(lang.code)">
+                    <span>{{lang.name}}</span>
+                </button>
+            </mat-menu>
+            <div fxHide fxShow.lt-md="true">
+                <button mat-icon-button color="primary" (click)="iscollapsed = !iscollapsed">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+
+        </div>
+
+    </mat-toolbar-row>
+
+</mat-toolbar>

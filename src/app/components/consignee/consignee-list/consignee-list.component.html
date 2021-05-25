@@ -1,0 +1,38 @@
+<div class="main-content" fxFlex="90%" fxFlex.lt-md="100%" style="margin: auto;padding: 0 16px 20px;">
+
+    <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                            {label:'consignee' | translate, value: ['consignee']},
+                            {label:'lookUp' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+    <div class="search-group" fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div class="look-up" fxFlex="60%">
+            <div class="search-input-group">
+                <input class="search-input" type="text" [(ngModel)]="keyword"
+                  (keyup.enter)="isSwitched = false; onSearch()" (keyup.esc)="clearKeyword()"
+                  placeholder="{{'consigneeSearch' | translate}}"
+                  appAutofocus
+                >
+                <button mat-button class="search-button" (click)="isSwitched = false; onSearch()">{{'search' | translate}}</button>
+            </div>
+        </div>
+
+        <div>
+            <button mat-button *ngIf="profile.isAdmin" class="btn-create" (click)="create()">{{'create' | translate}}</button>
+        </div>
+    </div>
+
+    <app-choose-type (typeChanged)="switchView($event)"></app-choose-type>
+    <!-- table -->
+
+    <app-consignee-list-table [data$]="dataSource$"
+                              (view)="detail($event)"
+                              *ngIf="type === 'table'"
+                              >
+    </app-consignee-list-table>
+
+    <!-- card -->
+    <app-consignee-list-card [data$]="dataSource$"
+                             (view)="detail($event)"
+                             *ngIf="type === 'card'"
+    ></app-consignee-list-card>
+</div>

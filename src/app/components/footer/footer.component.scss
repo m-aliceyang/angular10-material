@@ -1,0 +1,55 @@
+.app-footer-content {
+    background: #56c0e0;
+    color: #fff;
+    padding: 50px 16px;
+    justify-content: center;
+    .title {
+        font-weight: 600;
+        font-size: 18px;
+    }
+    .footer-card {
+        margin-bottom: 20px;
+        .title {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        .footer-input {
+            display: flex;
+            flex-direction: row;
+            input {
+                border: none;
+                padding: 0 15px;
+                min-width: 350px;
+                height: 42px;
+                background-color: #fff;
+            }
+            button {
+                background: #34517f;
+                height: 42px;
+                border-radius: 0;
+            }
+        }
+    }
+}
+
+.app-copyright {
+    padding: 1% 16px;
+    background-color: #1c7cd5;
+    color: #fff;
+    .social-icons {
+        a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+}
+
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
