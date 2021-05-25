@@ -1,0 +1,38 @@
+<div class="main-content" fxFlex="90%" fxFlex.lt-md="100%"  style="margin: auto;padding: 0 16px 20px;">
+
+    <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                            {label:'user' | translate, value:['user']},
+                            {label:'lookUp' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+    <div class="search-group" fxLayout="row" fxLayoutAlign="space-between stretch">
+      <div class="look-up" fxFlex="60%">
+          <div class="search-input-group">
+              <div class="input-group-prepend">
+                  <mat-icon class="mat-18">person</mat-icon>
+              </div>
+              <input class="search-input" [(ngModel)]="keyword"
+                [ngModelOptions]="{standalone: true}"
+                type="text" [placeholder]="'userLookupPlaceHolder' | translate"
+                (keyup.enter)="isSwitched = false; onSearch()"
+                (keyup.esc)="clearKeyword()"
+                appAutofocus
+                >
+              <button type="submit" class="search-button" mat-button (click)="isSwitched = false; onSearch()">{{'search' | translate}}</button>
+          </div>
+      </div>
+      <div>
+          <button *ngIf="profile.isAdmin" mat-button class="btn-create" (click)="navigateTo()">{{'create' | translate}}</button>
+      </div>
+    </div>
+
+    <app-choose-type (typeChanged)="switchView($event)"></app-choose-type>
+
+    <!-- table  -->
+    <app-user-table *ngIf="type ==='table'"
+                    [data$]="result$" (view)="edit($event)"
+                    ></app-user-table>
+    <!-- card -->
+    <app-user-card  *ngIf="type ==='card'"
+                    [data$]="result$" (view)="edit($event)"
+       ></app-user-card>
+</div>

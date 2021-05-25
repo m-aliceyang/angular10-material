@@ -1,0 +1,82 @@
+<div class="main-content" fxFlex="90%" fxFlex.lt-md="100%"  style="margin: auto;padding: 0 16px 20px;">
+
+    <app-breadcrumb [navs]="[{label:'home' | translate, value: ['home']},
+                            {label:'user' | translate, value: ['user']},
+                            {label: data$.value ? data$.value.name : 'new' | translate, value: [], isActive:true}]"></app-breadcrumb>
+
+    <div class="example-container">
+        <div fxFlex="100" fxLayout="row">
+            <form fxLayout="row wrap"
+              fxFlex="100"
+              fxLayoutAlign="space-between center"
+              fxLayoutGap="16px grid"
+              [formGroup]="form"
+              >
+              <mat-form-field fxFlex="48" fxFlex.lt-md="100">
+                <input matInput formControlName="name" type="text" placeholder="{{'userName' |  translate}}" fxFlex="100" maxlength="200"/>
+                <mat-hint>{{'nameTBDisplayedInAllArea' | translate}}</mat-hint>
+              </mat-form-field>
+              <div fxFlex="48" fxFlex.lt-md="100" fxLayout="row wrap" fxLayout.lt-md="column"
+                fxLayoutGap="10px" *ngIf="isEdit" fxLayoutAlign="start center"
+                fxLayoutAlign.lt-md=""
+              >
+                <button mat-stroked-button *ngIf="profile.isAdmin" color="primary" (click)="reset()">{{'resetPassword' | translate}}</button>
+                <button mat-stroked-button *ngIf="profile.isAdmin && (data$ | async)?.isActive" color="accent" (click)="suspend()">{{'suspendUser' | translate}}</button>
+                <button mat-stroked-button *ngIf="profile.isAdmin && !(data$ | async)?.isActive" color="accent" (click)="activate()">{{'activateUser' | translate}}</button>
+                <div><strong>Activation:</strong>&nbsp;&nbsp;<span>{{(data$ | async)?.isActive}}</span></div>
+              </div>
+              <mat-form-field fxFlex="48" fxFlex.lt-md="100">
+                <input matInput formControlName="branch" type="text" placeholder="Branch" fxFlex="100" maxlength="255"/>
+                <mat-hint>{{'optional' | translate}}</mat-hint>
+              </mat-form-field>
+              <mat-form-field fxFlex="48" fxFlex.lt-md="100">
+                <input matInput formControlName="department" type="text" placeholder="Department" fxFlex="100" maxlength="255"/>
+                <mat-hint>{{'optional' | translate}}</mat-hint>
+              </mat-form-field>
+              <mat-form-field fxFlex="48" fxFlex.lt-md="100">
+                <input matInput formControlName="email" type="text" placeholder="Email" fxFlex="100" maxlength="200"/>
+                <mat-hint>{{'emailRequired' | translate}}</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="fill" fxFlex="48" fxFlex.lt-md="100">
+                <mat-label>{{'selectRole' | translate}}</mat-label>
+                <mat-select formControlName="roles" multiple="true" fxFlex="100">
+                  <mat-option value="User">{{'user' | translate}}</mat-option>
+                  <mat-option value="Super">{{'super' | translate}}</mat-option>
+                  <mat-option value="Admin">{{'admin' | translate}}</mat-option>
+                </mat-select>
+                <mat-hint>{{'roleRequired' | translate}}</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="fill" fxFlex="48" fxFlex.lt-md="100">
+                <mat-label>{{'selectCompany' | translate}}</mat-label>
+                <mat-select formControlName="companies" multiple="true" fxFlex="100">
+                  <mat-option *ngFor="let o of (companies$ | async)" [value]="o.id">{{o.name}}</mat-option>
+                </mat-select>
+                <mat-hint>{{'companyRequired' | translate}}</mat-hint>
+              </mat-form-field>
+              <div fxFlex="48" fxFlex.lt-md="100" *ngIf="isEdit">
+                <div fxFlex="24" class="static-value">
+                  <div>{{'createdBy' | translate}}:</div>
+                  <div>{{(data$ | async)?.createdByUser}}</div>
+                </div>
+                <div fxFlex="24" class="static-value">
+                  <div>{{'createdDate' | translate}}:</div>
+                  <div>{{(data$ | async)?.createdDate | date:'short'}}</div>
+                </div>
+                <div fxFlex="24" class="static-value">
+                  <div>{{'lastUpdatedBy' | translate}}:</div>
+                  <div>{{(data$ | async)?.lastUpdatedByUser}}</div>
+                </div>
+                <div fxFlex="24" class="static-value">
+                  <div>{{'lastUpdatedDate' | translate}}:</div>
+                  <div>{{(data$ | async)?.lastUpdatedDate | date:'short'}}</div>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      <div fxFlexFill fxLayoutAlign="end center" fxLayoutGap="15px">
+          <button mat-stroked-button color="default" (click)="cancel()">{{'cancel' | translate}}</button>
+          <button mat-stroked-button *ngIf="profile.isAdmin" color="primary" (click)="save()" [disabled]="form.invalid || !form.touched || !form.dirty || form.pristine">{{'save' | translate}}</button>
+      </div>
+
+</div>

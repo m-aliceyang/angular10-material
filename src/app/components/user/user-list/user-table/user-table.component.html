@@ -1,0 +1,75 @@
+<div class="data-table" fxLayoutAlign="center stretch" fxLayout="column">
+    <table mat-table matSort [dataSource]="(data$ | async).data" class="mat-elevation-z8 table-striped full-width" fxFlex="100%">
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+                {{'actions' | translate}}
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <button class="btn-detail" mat-button (click)="detail(row.id)">{{'detail'| translate}}</button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'userName' | translate}}  </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'email' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="branch">
+            <th mat-header-cell *matHeaderCellDef> {{'branch' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.branch}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef> {{'department' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roles">
+            <th mat-header-cell *matHeaderCellDef> {{'roles' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="companies">
+            <th mat-header-cell *matHeaderCellDef> {{'companies' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.companies}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdByUser">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'createdBy' | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.createdByUser}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'created' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.createdDate | date: 'short'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastUpdatedByUser">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'updatedBy' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastUpdatedByUser}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastUpdatedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'updated' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastUpdatedDate | date: 'short'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef> {{'activation' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [length]="(data$ | async).records"
+                   [pageSize]="(data$ | async).pageSize"
+                   [pageIndex]="(data$ | async).page"
+                   [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>
+
